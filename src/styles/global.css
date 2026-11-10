@@ -32,6 +32,19 @@
   --nav-h: 72px;
   --shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.95);
 
+  /* glass system */
+  --glass: linear-gradient(
+    155deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.028) 46%,
+    rgba(255, 255, 255, 0.062) 100%
+  );
+  --glass-line: rgba(255, 255, 255, 0.14);
+  --glass-line-soft: rgba(255, 255, 255, 0.085);
+  --glass-blur: 16px;
+  --glass-sheen: inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  --glass-shadow: 0 26px 60px -32px rgba(0, 0, 0, 0.95);
+
   --font-display: 'Alexandria', 'IBM Plex Sans Arabic', system-ui, sans-serif;
   --font-body: 'IBM Plex Sans Arabic', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-latin: 'Space Grotesk', 'IBM Plex Sans Arabic', system-ui, sans-serif;
@@ -202,8 +215,9 @@ ol {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(55% 42% at 72% -8%, rgba(255, 255, 255, 0.11), transparent 70%),
-    radial-gradient(45% 40% at 8% 18%, rgba(255, 255, 255, 0.05), transparent 70%);
+    radial-gradient(55% 42% at 72% -8%, rgba(255, 255, 255, 0.16), transparent 70%),
+    radial-gradient(48% 44% at 6% 22%, rgba(255, 255, 255, 0.075), transparent 70%),
+    radial-gradient(42% 36% at 88% 76%, rgba(255, 255, 255, 0.05), transparent 72%);
 }
 
 .bg-fx__spot {
@@ -346,17 +360,21 @@ html[lang='ar'] .section__title {
   height: var(--nav-h);
   display: flex;
   align-items: center;
-  background: rgba(5, 6, 7, 0.5);
+  background: rgba(5, 6, 7, 0.42);
   border-block-end: 1px solid transparent;
-  backdrop-filter: blur(16px) saturate(120%);
-  -webkit-backdrop-filter: blur(16px) saturate(120%);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
   transition:
     background 0.35s ease,
     border-color 0.35s ease;
 }
 .site-nav[data-scrolled] {
-  background: rgba(5, 6, 7, 0.86);
-  border-block-end-color: var(--line);
+  background: rgba(5, 6, 7, 0.82);
+  border-block-end-color: var(--glass-line-soft);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 18px 40px -30px rgba(0, 0, 0, 0.95);
 }
 
 .nav__inner {
@@ -489,9 +507,10 @@ html[lang='ar'] .section__title {
   inset-inline: 0;
   z-index: 55;
   padding: 10px 20px 22px;
-  background: rgba(6, 8, 10, 0.97);
-  border-block-end: 1px solid var(--line);
-  backdrop-filter: blur(18px);
+  background: rgba(6, 8, 10, 0.9);
+  border-block-end: 1px solid var(--glass-line-soft);
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
   transform: translateY(-8px);
   opacity: 0;
   pointer-events: none;
@@ -646,6 +665,11 @@ html[lang='ar'] .section__title {
   aspect-ratio: 1 / 1;
   z-index: 1;
 }
+html.has-pointer .hero__visual {
+  transform: translate3d(calc(var(--px, 0) * 10px), calc(var(--py, 0) * 10px), 0);
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform;
+}
 .hero__visual::before {
   content: '';
   position: absolute;
@@ -674,17 +698,24 @@ html[lang='ar'] .section__title {
   position: absolute;
   z-index: 2;
   padding: 7px 13px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--glass-line-soft);
   border-radius: 999px;
-  background: rgba(10, 12, 15, 0.72);
-  backdrop-filter: blur(8px);
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.09), rgba(10, 12, 15, 0.55));
+  backdrop-filter: blur(10px) saturate(140%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
   font-family: var(--font-mono);
   font-size: 0.68rem;
   letter-spacing: 0.06em;
   color: var(--muted);
-  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.9);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 10px 30px -12px rgba(0, 0, 0, 0.9);
   animation: float 7s ease-in-out infinite;
   animation-delay: var(--delay, 0s);
+  /* independent transform: parallax never fights the float animation */
+  translate: calc(var(--px, 0) * 16px) calc(var(--py, 0) * 16px);
+  transition: translate 0.4s ease-out;
+  will-change: translate;
 }
 .orbit-chip:nth-child(2) {
   inset-block-start: 8%;
@@ -1223,6 +1254,7 @@ html[dir='rtl'] .empty-state span {
   display: flex;
   align-items: center;
   gap: 14px;
+  min-width: 0;
   padding: 15px 16px;
   border: 1px solid var(--line);
   border-radius: 16px;
@@ -1260,6 +1292,7 @@ html[dir='rtl'] .empty-state span {
   font-weight: 600;
 }
 .link-card__desc {
+  display: block;
   margin-block-start: 2px;
   color: var(--dim);
   font-size: 0.8rem;
@@ -1509,6 +1542,128 @@ textarea.input {
   height: 14px;
 }
 
+/* ---------- glass surfaces ----------
+   Backdrop blur is the expensive part, so it stays on the handful of large
+   panels that sit over the animated background. Small controls get a static
+   gradient sheen instead of a blur. */
+.cards,
+.links-grid,
+.skills-grid {
+  perspective: 1200px;
+  perspective-origin: 50% 30%;
+}
+
+.card,
+.link-card,
+.skill-group,
+.form,
+.about__portrait,
+.empty-state,
+.browser {
+  position: relative;
+  border-color: var(--glass-line);
+  background:
+    var(--glass),
+    radial-gradient(120% 90% at 50% 0%, rgba(255, 255, 255, 0.07), transparent 62%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(155%);
+  backdrop-filter: blur(var(--glass-blur)) saturate(155%);
+  box-shadow: var(--glass-sheen), var(--glass-shadow);
+}
+
+/* 1px chrome edge: gradient border that fades in and out around the panel */
+.card::before,
+.link-card::before,
+.skill-group::before,
+.form::before,
+.about__portrait::before,
+.empty-state::before,
+.browser::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    150deg,
+    rgba(255, 255, 255, 0.62) 0%,
+    rgba(255, 255, 255, 0.12) 26%,
+    rgba(255, 255, 255, 0) 54%,
+    rgba(255, 255, 255, 0.28) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0.5;
+  pointer-events: none;
+  transition: opacity 0.45s ease;
+}
+.card:hover::before,
+.link-card:hover::before,
+.skill-group:hover::before,
+.about__portrait:hover::before,
+.browser:hover::before,
+.site-row:hover .browser::before {
+  opacity: 0.95;
+}
+
+/* specular sheen: follows the pointer on tilted cards (desktop only) */
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  background: radial-gradient(
+    320px 320px at var(--tx, 50%) var(--ty, 50%),
+    rgba(255, 255, 255, 0.09),
+    transparent 68%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.card:hover::after {
+  opacity: 1;
+}
+
+.chip,
+.tag,
+.icon-btn,
+.lang-btn,
+.burger,
+.badge,
+.link-card__icon {
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.012));
+  border-color: var(--glass-line-soft);
+}
+
+.input {
+  border-color: var(--glass-line-soft);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.2));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* no backdrop-filter? keep the panels readable with a solid tint */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .card,
+  .link-card,
+  .skill-group,
+  .form,
+  .about__portrait,
+  .empty-state,
+  .browser {
+    background:
+      linear-gradient(180deg, rgba(24, 28, 33, 0.94), rgba(10, 12, 15, 0.94)),
+      radial-gradient(120% 90% at 50% 0%, rgba(255, 255, 255, 0.05), transparent 62%);
+  }
+}
+
 /* ---------- reveal ---------- */
 [data-reveal] {
   opacity: 0;
@@ -1586,6 +1741,9 @@ html.no-js [data-reveal] {
 }
 
 @media (max-width: 860px) {
+  :root {
+    --glass-blur: 9px;
+  }
   .hero {
     padding-block: calc(var(--nav-h) + 32px) 84px;
   }

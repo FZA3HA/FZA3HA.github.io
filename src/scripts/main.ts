@@ -62,6 +62,8 @@ if (finePointer && !reduceMotion) {
         raf = 0;
         root.style.setProperty('--mx', `${mx}px`);
         root.style.setProperty('--my', `${my}px`);
+        root.style.setProperty('--px', ((mx / window.innerWidth) * 2 - 1).toFixed(3));
+        root.style.setProperty('--py', ((my / window.innerHeight) * 2 - 1).toFixed(3));
       });
     },
     { passive: true },
@@ -110,7 +112,7 @@ if (reduceMotion) {
 if (finePointer && !reduceMotion) {
   document.querySelectorAll<HTMLElement>('[data-tilt]').forEach((el) => {
     let rect: DOMRect | null = null;
-    const strength = 6;
+    const strength = 9;
     el.addEventListener('pointerenter', () => {
       rect = el.getBoundingClientRect();
     });
@@ -118,7 +120,9 @@ if (finePointer && !reduceMotion) {
       if (!rect) rect = el.getBoundingClientRect();
       const px = (event.clientX - rect.left) / rect.width - 0.5;
       const py = (event.clientY - rect.top) / rect.height - 0.5;
-      el.style.transform = `perspective(900px) rotateY(${(px * strength).toFixed(2)}deg) rotateX(${(-py * strength).toFixed(2)}deg) translateY(-4px)`;
+      el.style.setProperty('--tx', `${(px * 100 + 50).toFixed(1)}%`);
+      el.style.setProperty('--ty', `${(py * 100 + 50).toFixed(1)}%`);
+      el.style.transform = `perspective(900px) rotateY(${(px * strength).toFixed(2)}deg) rotateX(${(-py * strength).toFixed(2)}deg) translate3d(0, -5px, 14px)`;
     });
     el.addEventListener('pointerleave', () => {
       el.style.transform = '';
