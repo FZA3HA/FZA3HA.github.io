@@ -1,0 +1,76 @@
+---
+import Icon from './Icon.astro';
+import { sites, pick, initials, placeholderStyle, thumbFor } from '../lib/content';
+import { t, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+
+<section class="section" id="sites">
+  <div class="container">
+    <div class="section__head" data-reveal>
+      <span class="eyebrow">{t(lang, 'sites.eyebrow')}</span>
+      <h2 class="section__title">{t(lang, 'sites.title')}</h2>
+      <p class="section__lead">{t(lang, 'sites.lead')}</p>
+    </div>
+
+    {
+      sites.length > 0 ? (
+        <div class="sites">
+          {sites.map((project, index) => {
+            const name = pick(project.name, lang);
+            const thumb = thumbFor(project);
+            const host = project.url ? project.url.replace(/^https?:\/\//, '').replace(/\/$/, '') : '';
+            return (
+              <article class="site-row" data-reveal style={`--d:${(index * 0.05).toFixed(2)}s`}>
+                <div class="site-row__media">
+                  <div class="browser" style={placeholderStyle(project.id)}>
+                    <div class="browser__bar">
+                      <span class="browser__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                      <span class="browser__url">{host || name}</span>
+                    </div>
+                    <div class="browser__body">
+                      {thumb ? (
+                        <img src={thumb} alt="" loading="lazy" width="800" height="500" />
+                      ) : (
+                        <span class="browser__initials">{initials(name)}</span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="site-row__body">
+                  <h3>{name}</h3>
+                  <p>{pick(project.desc, lang)}</p>
+                  <div class="tags">
+                    {project.tags.map((tag) => <span class="tag">{tag}</span>)}
+                  </div>
+                  <div class="site-row__cta">
+                    {project.url ? (
+                      <a class="btn btn--ghost btn--sm" href={project.url} target="_blank" rel="noopener noreferrer">
+                        {t(lang, 'sites.visit')}
+                        <Icon name="arrow-up-right" size={16} />
+                      </a>
+                    ) : (
+                      <span class="card__year">{t(lang, 'programs.soon')}</span>
+                    )}
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      ) : (
+        <div class="empty-state" data-reveal>
+          <Icon name="globe" size={26} />
+          <p>{t(lang, 'sites.empty')}</p>
+          <span>{t(lang, 'sites.emptyHint')}</span>
+        </div>
+      )
+    }
+  </div>
+</section>

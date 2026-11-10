@@ -1,0 +1,33 @@
+---
+import { site, pick } from '../lib/content';
+import { t, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+
+<section class="section" id="skills">
+  <div class="container">
+    <div class="section__head" data-reveal>
+      <span class="eyebrow">{t(lang, 'skills.eyebrow')}</span>
+      <h2 class="section__title">{t(lang, 'skills.title')}</h2>
+      <p class="section__lead">{t(lang, 'skills.lead')}</p>
+    </div>
+
+    <div class="skills-grid">
+      {
+        site.skills.map((group, index) => (
+          <div class="skill-group" data-reveal style={`--d:${(index * 0.08).toFixed(2)}s`}>
+            <h3>{pick(group.group, lang)}</h3>
+            <div class="chips">
+              {group.items.map((item) => <span class="chip">{item}</span>)}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

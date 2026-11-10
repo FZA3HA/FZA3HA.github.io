@@ -1,0 +1,84 @@
+---
+import Icon from './Icon.astro';
+import { programs, pick, initials, placeholderStyle, thumbFor } from '../lib/content';
+import { t, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+
+<section class="section" id="programs">
+  <div class="container">
+    <div class="section__head" data-reveal>
+      <span class="eyebrow">{t(lang, 'programs.eyebrow')}</span>
+      <h2 class="section__title">{t(lang, 'programs.title')}</h2>
+      <p class="section__lead">{t(lang, 'programs.lead')}</p>
+    </div>
+
+    {
+      programs.length > 0 ? (
+        <div class="cards">
+          {programs.map((project, index) => {
+            const name = pick(project.name, lang);
+            const thumb = thumbFor(project);
+            return (
+              <article
+                class="card"
+                data-tilt
+                data-reveal
+                style={`--d:${(index * 0.06).toFixed(2)}s;${placeholderStyle(project.id)}`}
+              >
+                <div class="card__media">
+                  {project.demo && <span class="badge">{t(lang, 'programs.demo')}</span>}
+                  {thumb ? (
+                    <img src={thumb} alt="" loading="lazy" width="640" height="400" />
+                  ) : (
+                    <span class="card__initials">{initials(name)}</span>
+                  )}
+                </div>
+
+                <div class="card__body">
+                  <h3 class="card__title">{name}</h3>
+                  <p class="card__desc">{pick(project.desc, lang)}</p>
+
+                  <div class="tags">
+                    {project.tags.map((tag) => <span class="tag">{tag}</span>)}
+                  </div>
+
+                  <div class="card__foot">
+                    <span class="card__year">{project.year}</span>
+                    <div class="card__links">
+                      {project.repo && (
+                        <a class="text-link text-link--muted" href={project.repo} target="_blank" rel="noopener noreferrer">
+                          <Icon name="code" size={15} />
+                          {t(lang, 'programs.repo')}
+                        </a>
+                      )}
+                      {project.url ? (
+                        <a class="text-link" href={project.url} target="_blank" rel="noopener noreferrer">
+                          {t(lang, 'programs.visit')}
+                          <Icon name="arrow-up-right" size={15} />
+                        </a>
+                      ) : (
+                        <span class="card__year">{t(lang, 'programs.soon')}</span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      ) : (
+        <div class="empty-state" data-reveal>
+          <Icon name="code" size={26} />
+          <p>{t(lang, 'programs.empty')}</p>
+          <span>{t(lang, 'programs.emptyHint')}</span>
+        </div>
+      )
+    }
+  </div>
+</section>

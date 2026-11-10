@@ -1,0 +1,51 @@
+---
+import Icon from './Icon.astro';
+import { links, pick } from '../lib/content';
+import { t, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const isInternal = (url: string) => url.startsWith('#') || url.startsWith('/');
+---
+
+<section class="section section--tight" id="links">
+  <div class="container">
+    <div class="section__head" data-reveal>
+      <span class="eyebrow">{t(lang, 'links.eyebrow')}</span>
+      <h2 class="section__title">{t(lang, 'links.title')}</h2>
+      <p class="section__lead">{t(lang, 'links.lead')}</p>
+    </div>
+
+    {
+      links.length > 0 && (
+        <div class="links-grid">
+          {links.map((link, index) => (
+            <a
+              class="link-card"
+              href={link.url}
+              data-reveal
+              style={`--d:${(index * 0.05).toFixed(2)}s`}
+              {...isInternal(link.url)
+                ? {}
+                : { target: '_blank', rel: 'noopener noreferrer' }}
+            >
+              <span class="link-card__icon">
+                <Icon name={link.icon} size={19} />
+              </span>
+              <span class="link-card__text">
+                <span class="link-card__title">{pick(link.title, lang)}</span>
+                <span class="link-card__desc">{pick(link.desc, lang)}</span>
+              </span>
+              <span class="link-card__arrow">
+                <Icon name={isInternal(link.url) ? 'arrow-down' : 'arrow-up-right'} size={17} />
+              </span>
+            </a>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</section>

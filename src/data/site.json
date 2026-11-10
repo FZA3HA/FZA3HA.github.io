@@ -1,0 +1,110 @@
+{
+  "brand": "FZA3HA",
+  "name": {
+    "ar": "سيف حسن أحمد",
+    "en": "Saif Hassan Ahmed"
+  },
+  "role": {
+    "ar": "مطور بايثون",
+    "en": "Python Developer"
+  },
+  "tagline": {
+    "ar": "أبني أدوات ومواقع وسكربتات بتحوّل المهام المتكررة لحاجة بتشتغل لوحدها.",
+    "en": "I build tools, websites and scripts that turn repetitive work into things that run by themselves."
+  },
+  "bio": {
+    "ar": [
+      "أنا سيف، مطور بايثون. بحب أفهم المشكلة من جذورها، وبعدها أكتب أقل كود ممكن يحلها بأحسن شكل.",
+      "شغلي بين الأدوات اللي بتسهّل اليوم، والسكربتات اللي بتوفّر وقت، والمواقع اللي بتوصّل الفكرة بسرعة وبشكل نظيف.",
+      "هنا بتلاقي كل حاجة بعملها — البرامج، المواقع، واللينكات — وبتتحدّث باستمرار."
+    ],
+    "en": [
+      "I'm Saif, a Python developer. I like to understand a problem at its roots, then write the smallest amount of code that solves it properly.",
+      "My work sits between tools that make the day easier, scripts that save time, and websites that deliver an idea quickly and cleanly.",
+      "This is where everything I build lives — programs, websites and links — and it keeps growing."
+    ]
+  },
+  "availability": {
+    "ar": "متاح لمشاريع جديدة",
+    "en": "Available for new projects"
+  },
+  "location": {
+    "ar": "",
+    "en": ""
+  },
+  "email": "fza3ha10@gmail.com",
+  "formEndpoint": "",
+  "focus": ["Python", "Automation", "Web", "Bots", "Data", "CLI"],
+  "facts": [
+    {
+      "label": { "ar": "اللغة الأساسية", "en": "Main language" },
+      "value": { "ar": "Python", "en": "Python" }
+    },
+    {
+      "label": { "ar": "التركيز", "en": "Focus" },
+      "value": { "ar": "أدوات، أتمتة، ويب", "en": "Tools, automation, web" }
+    },
+    {
+      "label": { "ar": "التوفر", "en": "Availability" },
+      "value": { "ar": "مفتوح للتعاون", "en": "Open to collaborate" }
+    }
+  ],
+  "socials": [
+    {
+      "id": "github",
+      "label": "GitHub",
+      "url": "https://github.com/FZA3HA",
+      "icon": "github"
+    },
+    {
+      "id": "instagram",
+      "label": "Instagram",
+      "url": "https://www.instagram.com/fza_3_ha/",
+      "icon": "instagram"
+    },
+    {
+      "id": "linkedin",
+      "label": "LinkedIn",
+      "url": "",
+      "icon": "linkedin"
+    },
+    {
+      "id": "x",
+      "label": "X",
+      "url": "",
+      "icon": "x"
+    },
+    {
+      "id": "youtube",
+      "label": "YouTube",
+      "url": "",
+      "icon": "youtube"
+    },
+    {
+      "id": "telegram",
+      "label": "Telegram",
+      "url": "",
+      "icon": "telegram"
+    },
+    {
+      "id": "whatsapp",
+      "label": "WhatsApp",
+      "url": "",
+      "icon": "whatsapp"
+    }
+  ],
+  "skills": [
+    {
+      "group": { "ar": "لغات", "en": "Languages" },
+      "items": ["Python", "JavaScript", "TypeScript", "SQL", "HTML", "CSS"]
+    },
+    {
+      "group": { "ar": "أدوات ومكتبات", "en": "Frameworks & libraries" },
+      "items": ["FastAPI", "Django", "Flask", "Pandas", "Selenium", "Playwright", "Pillow", "Requests"]
+    },
+    {
+      "group": { "ar": "بيئة العمل", "en": "Environment" },
+      "items": ["Git", "GitHub Actions", "Linux", "Docker", "VS Code", "Figma"]
+    }
+  ]
+}

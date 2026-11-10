@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../lib/content';
+---
+
+<BaseLayout
+  lang="ar"
+  title={`404 — ${site.brand}`}
+  description="الصفحة مش موجودة"
+  noindex
+>
+  <section class="section" style="min-height:80svh;display:grid;place-items:center;text-align:center">
+    <div class="container" style="max-width:560px">
+      <p class="hero__brand" style="font-size:clamp(6rem,26vw,14rem)">404</p>
+      <h1 class="section__title" style="margin-top:8px">الصفحة مش موجودة</h1>
+      <p class="section__lead" style="margin-inline:auto">
+        الرابط اللي جربته مش بيوصل لحاجة. ارجع للرئيسية أو شوف شغلي.
+      </p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px">
+        <a class="btn btn--primary" href="/">الرئيسية <Icon name="arrow-up-right" size={18} /></a>
+        <a class="btn btn--ghost" href="/#programs">شوف شغلي</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

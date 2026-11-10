@@ -1,0 +1,180 @@
+---
+import '../styles/admin.css';
+---
+
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#050607" />
+    <title>لوحة التحكم — FZA3HA</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Alexandria:wght@500;600&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400&display=swap"
+    />
+  </head>
+
+  <body>
+    <header class="a-header">
+      <a class="a-brand" href="/">
+        <img src="/logo-256.webp" alt="" width="34" height="34" />
+        <span>
+          <strong>FZA3HA</strong>
+          <span>لوحة التحكم</span>
+        </span>
+      </a>
+      <div class="a-savebar">
+        <span class="a-badge" id="repoInfo" hidden></span>
+        <button class="a-btn a-btn--sm" id="lockBtn" type="button" hidden>قفل</button>
+      </div>
+    </header>
+
+    <main class="a-wrap">
+      <!-- ============ setup ============ -->
+      <section id="screen-setup" class="a-narrow" hidden>
+        <div class="a-card">
+          <h1>إعداد اللوحة</h1>
+          <p class="a-sub">
+            خطوة واحدة بس. التوكن بيتخزّن <strong>مشفّر</strong> على الجهاز ده، ومش بيتبعت لأي مكان غير GitHub.
+          </p>
+
+          <form id="setupForm" autocomplete="off" novalidate>
+            <div class="a-row2">
+              <label class="a-field">
+                <span class="a-label">GitHub username</span>
+                <input class="a-input" name="owner" dir="ltr" value="FZA3HA" required />
+              </label>
+              <label class="a-field">
+                <span class="a-label">Repository</span>
+                <input class="a-input" name="repo" dir="ltr" value="FZA3HA.github.io" required />
+              </label>
+            </div>
+
+            <label class="a-field">
+              <span class="a-label">Branch</span>
+              <input class="a-input" name="branch" dir="ltr" value="main" placeholder="main" />
+            </label>
+
+            <label class="a-field">
+              <span class="a-label">GitHub Token</span>
+              <input class="a-input" name="token" type="password" dir="ltr" placeholder="github_pat_..." required />
+            </label>
+
+            <div class="a-row2">
+              <label class="a-field">
+                <span class="a-label">اسم المستخدم للوحة</span>
+                <input class="a-input" name="username" dir="ltr" autocomplete="username" required />
+              </label>
+              <label class="a-field">
+                <span class="a-label">كلمة المرور</span>
+                <input
+                  class="a-input"
+                  name="password"
+                  type="password"
+                  minlength="8"
+                  autocomplete="new-password"
+                  required
+                />
+              </label>
+            </div>
+
+            <label class="a-field">
+              <span class="a-label">تأكيد كلمة المرور</span>
+              <input class="a-input" name="password2" type="password" minlength="8" autocomplete="new-password" required />
+            </label>
+
+            <button class="a-btn a-btn--primary a-btn--block" type="submit">حفظ وبدء</button>
+            <p class="a-status" id="setupStatus" role="status"></p>
+          </form>
+        </div>
+
+        <div class="a-card">
+          <h2>إزاي تجيب التوكن؟ (٣ دقايق)</h2>
+          <ol class="a-sub a-steps">
+            <li>
+              افتح
+              <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener"
+                >Fine-grained tokens</a
+              >
+              على GitHub.
+            </li>
+            <li>اختار الريبو <span class="a-code">FZA3HA.github.io</span> بس.</li>
+            <li>
+              من <strong>Repository permissions</strong> خلي <span class="a-code">Contents</span> =
+              <strong>Read and write</strong>.
+            </li>
+            <li>اعمل Generate، وانسخ التوكن (بيبدأ بـ <span class="a-code">github_pat_</span>).</li>
+          </ol>
+          <p class="a-hint">
+            التوكن ده هو المفتاح اللي بيسمح للوحة تعدّل ملفات الموقع. لو ضاع، اعمل واحد جديد وامسح إعدادات اللوحة.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============ login ============ -->
+      <section id="screen-login" class="a-narrow" hidden>
+        <div class="a-card">
+          <h1>تسجيل الدخول</h1>
+          <p class="a-sub">اللوحة دي لصاحب الموقع بس.</p>
+
+          <form id="loginForm" autocomplete="off" novalidate>
+            <label class="a-field">
+              <span class="a-label">اسم المستخدم</span>
+              <input class="a-input" name="username" dir="ltr" autocomplete="username" required />
+            </label>
+            <label class="a-field">
+              <span class="a-label">كلمة المرور</span>
+              <input class="a-input" name="password" type="password" autocomplete="current-password" required />
+            </label>
+            <button class="a-btn a-btn--primary a-btn--block" type="submit">دخول</button>
+            <p class="a-status" id="loginStatus" role="status"></p>
+          </form>
+
+          <div class="a-actions">
+            <button class="a-btn a-btn--sm a-btn--danger" id="resetBtn" type="button">مسح الإعدادات من الجهاز</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ dashboard ============ -->
+      <section id="screen-dash" hidden>
+        <div class="a-dash">
+          <nav class="a-tabs" id="tabs" aria-label="أقسام اللوحة">
+            <button class="a-tab" type="button" data-tab="programs" aria-current="true">البرامج <small>01</small></button>
+            <button class="a-tab" type="button" data-tab="sites">المواقع <small>02</small></button>
+            <button class="a-tab" type="button" data-tab="links">اللينكات <small>03</small></button>
+            <button class="a-tab" type="button" data-tab="profile">الملف الشخصي <small>04</small></button>
+            <button class="a-tab" type="button" data-tab="json">JSON <small>05</small></button>
+          </nav>
+
+          <div id="panel" aria-live="polite"></div>
+        </div>
+      </section>
+    </main>
+
+    <dialog class="a-dialog" id="editorDialog">
+      <form class="a-dialog__form" id="editorForm" method="dialog" novalidate>
+        <div class="a-dialog__head">
+          <h2 id="editorTitle">تعديل</h2>
+          <button class="a-btn a-btn--sm" type="button" data-close>إغلاق</button>
+        </div>
+        <div class="a-dialog__body" id="editorBody"></div>
+        <div class="a-dialog__foot">
+          <button class="a-btn" type="button" data-close>إلغاء</button>
+          <button class="a-btn a-btn--primary" type="submit">حفظ</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div class="a-toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script>
+      import '../scripts/admin';
+    </script>
+  </body>
+</html>

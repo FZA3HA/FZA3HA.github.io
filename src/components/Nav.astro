@@ -1,0 +1,70 @@
+---
+import Icon from './Icon.astro';
+import { site } from '../lib/content';
+import { t, type Lang, type UIKey } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const home = lang === 'ar' ? '/' : '/en/';
+const altHref = lang === 'ar' ? '/en/' : '/';
+
+const items: { href: string; key: UIKey; n: string }[] = [
+  { href: '#about', key: 'nav.about', n: '01' },
+  { href: '#programs', key: 'nav.programs', n: '02' },
+  { href: '#sites', key: 'nav.sites', n: '03' },
+  { href: '#links', key: 'nav.links', n: '04' },
+  { href: '#skills', key: 'nav.skills', n: '05' },
+  { href: '#contact', key: 'nav.contact', n: '06' },
+];
+---
+
+<header class="site-nav" id="siteNav">
+  <div class="container nav__inner">
+    <a class="brand" href={home} aria-label={site.brand}>
+      <img class="brand__logo" src="/logo-256.webp" alt="" width="38" height="38" />
+      <span class="brand__name">{site.brand}</span>
+    </a>
+
+    <nav class="nav__links" aria-label={lang === 'ar' ? 'روابط الموقع' : 'Site'}>
+      {
+        items.map((item) => (
+          <a class="nav__link" href={item.href}>
+            {t(lang, item.key)}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="nav__actions">
+      <a class="lang-btn" href={altHref} data-lang-switch={lang === 'ar' ? 'en' : 'ar'} aria-label={t(lang, 'nav.lang')}>
+        <Icon name="globe" size={14} />
+        <span>{t(lang, 'nav.langShort')}</span>
+      </a>
+      <button
+        class="burger"
+        type="button"
+        aria-expanded="false"
+        aria-controls="navPanel"
+        aria-label={t(lang, 'nav.menu')}
+      >
+        <span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="nav__panel" id="navPanel">
+  {
+    items.map((item) => (
+      <a href={item.href}>
+        {t(lang, item.key)} <span>{item.n}</span>
+      </a>
+    ))
+  }
+  <a href={altHref} data-lang-switch={lang === 'ar' ? 'en' : 'ar'}>
+    {t(lang, 'nav.lang')} <span>⇄</span>
+  </a>
+</div>

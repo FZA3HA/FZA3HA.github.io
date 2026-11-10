@@ -1,0 +1,116 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { site, activeSocials } from '../lib/content';
+import type { Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  noindex?: boolean;
+}
+
+const { lang, title, description, noindex = false } = Astro.props;
+
+const dir = lang === 'ar' ? 'rtl' : 'ltr';
+const altHref = lang === 'ar' ? '/en/' : '/';
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://fza3ha.github.io').href;
+const altUrl = new URL(altHref, Astro.site ?? 'https://fza3ha.github.io').href;
+const ogImage = new URL('/og.jpg', Astro.site ?? 'https://fza3ha.github.io').href;
+
+const personLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: site.name.en,
+  alternateName: site.brand,
+  jobTitle: site.role.en,
+  description: site.tagline.en,
+  url: canonical,
+  image: ogImage,
+  sameAs: activeSocials.map((s) => s.url).filter((u) => /^https?:/.test(u)),
+};
+---
+
+<!doctype html>
+<html lang={lang} dir={dir} class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="ar" href={new URL('/', Astro.site ?? 'https://fza3ha.github.io').href} />
+    <link rel="alternate" hreflang="en" href={new URL('/en/', Astro.site ?? 'https://fza3ha.github.io').href} />
+    <link rel="alternate" hreflang="x-default" href={new URL('/', Astro.site ?? 'https://fza3ha.github.io').href} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <meta name="theme-color" content="#050607" />
+    <meta name="color-scheme" content="dark" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.brand} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content={lang === 'ar' ? 'ar_AR' : 'en_US'} />
+    <meta property="og:locale:alternate" content={lang === 'ar' ? 'en_US' : 'ar_AR'} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400&display=swap"
+    />
+
+    <script is:inline>
+      document.documentElement.classList.remove('no-js');
+    </script>
+    <script is:inline>
+      (function () {
+        try {
+          var pref = localStorage.getItem('fz:lang');
+          var cur = document.documentElement.lang;
+          if (!pref || pref === cur) return;
+          var p = location.pathname;
+          if (cur === 'ar' && pref === 'en' && (p === '/' || p === '/index.html')) location.replace('/en/');
+          else if (cur === 'en' && pref === 'ar' && p.indexOf('/en') === 0) location.replace('/');
+        } catch (e) {}
+      })();
+    </script>
+
+    <script type="application/ld+json" set:html={JSON.stringify(personLd)} />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">{(lang === 'ar' ? 'روح للمحتوى' : 'Skip to content')}</a>
+
+    <div class="bg-fx" aria-hidden="true">
+      <div class="bg-fx__grid"></div>
+      <div class="bg-fx__glow"></div>
+      <div class="bg-fx__spot"></div>
+      <div class="bg-fx__grain"></div>
+    </div>
+
+    <Nav lang={lang} />
+
+    <main id="main" class="page">
+      <slot />
+    </main>
+
+    <Footer lang={lang} />
+
+    <script>
+      import '../scripts/main';
+    </script>
+  </body>
+</html>

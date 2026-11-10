@@ -1,0 +1,14 @@
+---
+interface Props {
+  items: string[];
+}
+
+const { items } = Astro.props;
+const list = [...items, ...items, ...items, ...items];
+---
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    {list.map((item) => <span class="marquee__item">{item}</span>)}
+  </div>
+</div>

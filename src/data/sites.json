@@ -1,0 +1,28 @@
+[
+  {
+    "id": "fza3ha",
+    "name": { "ar": "FZA3HA", "en": "FZA3HA" },
+    "desc": {
+      "ar": "الموقع اللي إنت فيه دلوقتي: صفحة واحدة سريعة، عربي وإنجليزي، بمشهد 3D خفيف.",
+      "en": "The site you're on right now: one fast page, Arabic and English, with a lightweight 3D scene."
+    },
+    "url": "https://fza3ha.github.io",
+    "year": "2026",
+    "tags": ["Astro", "Three.js", "RTL"],
+    "image": "/og.jpg",
+    "demo": false
+  },
+  {
+    "id": "imsakiyah",
+    "name": { "ar": "إمساكية رمضان ١٤٤٨", "en": "Ramadan Imsakiyah 1448H" },
+    "desc": {
+      "ar": "مواعيد الإمساك والإفطار لرمضان ١٤٤٨ هـ في صفحة واحدة سريعة، مظبوطة على الموبايل.",
+      "en": "Imsak and iftar times for Ramadan 1448 AH in one fast page built for mobile."
+    },
+    "url": "https://fza3ha.github.io/fza3ha-s-Ramadan-Imsakiyah-1448H/",
+    "year": "2026",
+    "tags": ["Web", "TypeScript", "Ramadan"],
+    "image": "",
+    "demo": false
+  }
+]

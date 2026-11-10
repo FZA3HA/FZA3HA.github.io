@@ -1,0 +1,73 @@
+---
+import Icon from './Icon.astro';
+import { site, pick, activeSocials } from '../lib/content';
+import { t, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+
+<section class="section" id="about">
+  <div class="container">
+    <div class="section__head" data-reveal>
+      <span class="eyebrow">{t(lang, 'about.eyebrow')}</span>
+      <h2 class="section__title">{t(lang, 'about.title')}</h2>
+      <p class="section__lead">{t(lang, 'about.lead')}</p>
+    </div>
+
+    <div class="about__grid">
+      <div class="about__portrait" data-tilt data-reveal>
+        <img
+          class="about__logo"
+          src="/logo.webp"
+          alt={`${site.brand} — ${pick(site.role, lang)}`}
+          width="440"
+          height="440"
+          loading="lazy"
+        />
+        <span class="about__ring" aria-hidden="true"></span>
+        <div class="about__portrait-foot">
+          <span>{site.brand}</span>
+          <span>{pick(site.role, lang)}</span>
+        </div>
+      </div>
+
+      <div class="about__body" data-reveal style="--d:.12s">
+        {site.bio[lang].map((paragraph) => <p>{paragraph}</p>)}
+
+        <dl class="facts">
+          {
+            site.facts.map((fact) => (
+              <div class="fact">
+                <dt>{pick(fact.label, lang)}</dt>
+                <dd>{pick(fact.value, lang)}</dd>
+              </div>
+            ))
+          }
+        </dl>
+
+        {
+          activeSocials.length > 0 && (
+            <div class="about__socials">
+              {activeSocials.map((social) => (
+                <a
+                  class="icon-btn"
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
+                  title={social.label}
+                >
+                  <Icon name={social.icon} size={19} />
+                </a>
+              ))}
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,16 @@
+[
+  {
+    "id": "skyv",
+    "name": { "ar": "skyV", "en": "skyV" },
+    "desc": {
+      "ar": "برنامج ويندوز لتحميل الفيديو والصوت من يوتيوب وأكثر من ١٠٠٠ موقع، وتحويل أي فيديو لـ MP3 بوسوم وغلاف أوتوماتيك.",
+      "en": "A Windows app that downloads video and audio from YouTube and 1000+ sites, and converts any video to MP3 with automatic tags and cover art."
+    },
+    "url": "https://github.com/FZA3HA/skyV/releases/latest",
+    "repo": "https://github.com/FZA3HA/skyV",
+    "year": "2026",
+    "tags": ["Python", "Tkinter", "yt-dlp", "Windows"],
+    "image": "/thumbs/skyv.jpg",
+    "demo": false
+  }
+]

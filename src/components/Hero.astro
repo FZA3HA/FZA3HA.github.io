@@ -1,0 +1,47 @@
+---
+import Icon from './Icon.astro';
+import { site, pick } from '../lib/content';
+import { t, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const chips = site.focus.slice(0, 4);
+---
+
+<section class="hero" id="top">
+  <div class="container hero__grid">
+    <div class="hero__text">
+      <span class="hero__badge">
+        <span class="dot"></span>
+        {pick(site.availability, lang)}
+      </span>
+
+      <p class="hero__name">{pick(site.name, lang)}</p>
+      <h1 class="hero__brand">{site.brand}</h1>
+      <p class="hero__role">{pick(site.role, lang)}</p>
+      <p class="hero__tagline">{pick(site.tagline, lang)}</p>
+
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="#programs">
+          {t(lang, 'hero.cta.work')}
+          <Icon name="arrow-down" size={18} />
+        </a>
+        <a class="btn btn--ghost" href="#contact">{t(lang, 'hero.cta.contact')}</a>
+      </div>
+
+      <div class="hero__focus">
+        {site.focus.map((item) => <span>{item}</span>)}
+      </div>
+    </div>
+
+    <div class="hero__visual" aria-hidden="true">
+      <canvas class="hero__canvas" id="heroCanvas"></canvas>
+      {chips.map((chip, i) => <span class="orbit-chip" style={`--delay:${(i * 0.8).toFixed(1)}s`}>{chip}</span>)}
+    </div>
+  </div>
+
+  <a class="hero__scroll" href="#about">{t(lang, 'hero.scroll')}</a>
+</section>

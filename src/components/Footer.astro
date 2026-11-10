@@ -1,0 +1,44 @@
+---
+import Icon from './Icon.astro';
+import { site } from '../lib/content';
+import { t, type Lang, type UIKey } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const home = lang === 'ar' ? '/' : '/en/';
+
+const nav: { href: string; key: UIKey }[] = [
+  { href: '#programs', key: 'nav.programs' },
+  { href: '#sites', key: 'nav.sites' },
+  { href: '#links', key: 'nav.links' },
+  { href: '#contact', key: 'nav.contact' },
+];
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer__top">
+      <a class="brand" href={home} aria-label={site.brand}>
+        <img class="brand__logo" src="/logo-256.webp" alt="" width="38" height="38" loading="lazy" />
+        <span class="brand__name">{site.brand}</span>
+      </a>
+
+      <nav class="footer__nav" aria-label={lang === 'ar' ? 'روابط سريعة' : 'Quick links'}>
+        {nav.map((item) => <a href={item.href}>{t(lang, item.key)}</a>)}
+        <a href={home}>{lang === 'ar' ? 'الرئيسية' : 'Home'}</a>
+      </nav>
+    </div>
+
+    <div class="footer__bottom">
+      <span>© <span data-year>2026</span> {site.brand} — {t(lang, 'footer.rights')}</span>
+      <span>{t(lang, 'footer.made')}</span>
+      <span style="display:flex;gap:16px;align-items:center">
+        <a href="/admin/">{t(lang, 'footer.admin')}</a>
+        <a class="to-top" href="#main">{t(lang, 'footer.top')} <Icon name="arrow-up" size={14} /></a>
+      </span>
+    </div>
+  </div>
+</footer>
