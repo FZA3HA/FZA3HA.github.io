@@ -9,3 +9,7 @@ Thumbs.db
 !.env.example
 .vscode/
 .idea/
+
+# local launchers (machine-specific node path)
+/dev.cmd
+/preview.cmd
