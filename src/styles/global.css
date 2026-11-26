@@ -837,7 +837,10 @@ html[dir='rtl'] .marquee__track {
 }
 .about__ring {
   position: absolute;
-  inset: 8px;
+  top: 26px;
+  left: 26px;
+  right: 26px;
+  aspect-ratio: 1;
   border-radius: 50%;
   border: 1px dashed rgba(255, 255, 255, 0.12);
   animation: spin 60s linear infinite;

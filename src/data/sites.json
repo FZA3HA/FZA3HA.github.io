@@ -1,44 +1,5 @@
 [
   {
-    "id": "imsakiyah-unex",
-    "name": { "ar": "إمساكية UNEX ١٤٤٨", "en": "UNEX Imsakiyah 1448H" },
-    "desc": {
-      "ar": "إمساكية رمضان ١٤٤٨هـ لـ UNEX (الخبراء المتحدون) — محاسبون قانونيون وخبراء ضرائب، القاهرة.",
-      "en": "Ramadan 1448H imsakiyah page for UNEX (United Experts) — accountants and tax experts, Cairo."
-    },
-    "url": "https://fza3ha.github.io/imsakiyah-unex/",
-    "year": "2026",
-    "tags": ["UNEX", "Ramadan", "Web"],
-    "image": "",
-    "demo": false
-  },
-  {
-    "id": "imsakiyah-bousla",
-    "name": { "ar": "إمساكية Bousla ١٤٤٨", "en": "Bousla Imsakiyah 1448H" },
-    "desc": {
-      "ar": "إمساكية رمضان ١٤٤٨هـ لـ Bousla Developments، القاهرة.",
-      "en": "Ramadan 1448H imsakiyah page for Bousla Developments, Cairo."
-    },
-    "url": "https://fza3ha.github.io/imsakiyah-bousla/",
-    "year": "2026",
-    "tags": ["Bousla", "Ramadan", "Web"],
-    "image": "",
-    "demo": false
-  },
-  {
-    "id": "imsakiyah-townway",
-    "name": { "ar": "إمساكية TOWN WAY ١٤٤٨", "en": "TOWN WAY Imsakiyah 1448H" },
-    "desc": {
-      "ar": "إمساكية رمضان ١٤٤٨هـ لـ TOWN WAY DEVELOPMENTS، مدينة نصر.",
-      "en": "Ramadan 1448H imsakiyah page for TOWN WAY DEVELOPMENTS, Nasr City."
-    },
-    "url": "https://fza3ha.github.io/imsakiyah-townway/",
-    "year": "2026",
-    "tags": ["Townway", "Ramadan", "Web"],
-    "image": "",
-    "demo": false
-  },
-  {
     "id": "imsakiyah-1448h",
     "name": { "ar": "إمساكية رمضان ١٤٤٨", "en": "Ramadan Imsakiyah 1448H" },
     "desc": {
