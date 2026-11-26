@@ -182,13 +182,25 @@ if (form) {
           body: data,
           headers: { Accept: 'application/json' },
         });
-        if (!response.ok) throw new Error('request failed');
+        let ok = response.ok;
+        let detail = '';
+        try {
+          const json = await response.json();
+          if (json && (json.success === false || json.success === 'false')) ok = false;
+          if (json && json.message) detail = String(json.message);
+        } catch {
+          /* non-JSON response (e.g. FormSubmit activation page) */
+        }
+        if (!ok) throw new Error(detail || 'request failed');
         status.dataset.state = 'ok';
         status.textContent = messages.ok || 'OK';
         form.reset();
-      } catch {
+      } catch (error) {
         status.dataset.state = 'err';
-        status.textContent = messages.err || 'Error';
+        status.textContent =
+          error instanceof Error && error.message
+            ? error.message
+            : messages.err || 'Error';
       }
       return;
     }
