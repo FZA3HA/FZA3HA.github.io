@@ -5,6 +5,8 @@
    localStorage. The repo itself contains no secrets.
    ============================================================ */
 
+import LOCK from '../data/lock.json';
+
 type Kind = 'programs' | 'sites' | 'links';
 type AnyRecord = Record<string, any>;
 
@@ -55,11 +57,47 @@ const ICONS = ['link', 'github', 'instagram', 'linkedin', 'x', 'youtube', 'teleg
 const state = {
   config: null as Config | null,
   token: null as string | null,
+  passphrase: null as string | null,
   branch: 'main',
   tab: 'programs' as 'programs' | 'sites' | 'links' | 'profile' | 'json',
   files: {} as Record<string, FileState>,
   editor: null as null | { kind: Kind; index: number | null },
 };
+
+/* ---------- lock gate ---------- */
+interface LockFile {
+  v?: number;
+  iter?: number;
+  salt?: string;
+  hash?: string;
+  set?: string;
+}
+
+/** The salted hash baked at build time by `npm run admin:pass`. */
+const GATE: LockFile = LOCK as LockFile;
+const GATE_ON = Boolean(GATE.salt && GATE.hash);
+const PASS_KEY = 'fz:pass:v1';
+
+async function passphraseMatches(passphrase: string): Promise<boolean> {
+  if (!GATE_ON) return true;
+  const base = await crypto.subtle.importKey('raw', te.encode(passphrase), 'PBKDF2', false, ['deriveBits']);
+  const bits = await crypto.subtle.deriveBits(
+    {
+      name: 'PBKDF2',
+      salt: fromB64(GATE.salt as string) as unknown as BufferSource,
+      iterations: GATE.iter || 600000,
+      hash: 'SHA-256',
+    },
+    base,
+    256,
+  );
+  const expected = fromB64(GATE.hash as string);
+  const actual = new Uint8Array(bits);
+  if (expected.length !== actual.length) return false;
+  let diff = 0;
+  for (let i = 0; i < expected.length; i++) diff |= expected[i] ^ actual[i];
+  return diff === 0;
+}
 
 /* ---------- tiny helpers ---------- */
 const $ = <T extends HTMLElement = HTMLElement>(sel: string, root: ParentNode = document): T =>
@@ -287,12 +325,13 @@ async function downscale(file: File): Promise<string> {
 
 /* ---------- screens ---------- */
 const screens = {
+  lock: $('#screen-lock'),
   setup: $('#screen-setup'),
   login: $('#screen-login'),
   dash: $('#screen-dash'),
 };
 
-function show(screen: 'setup' | 'login' | 'dash'): void {
+function show(screen: 'lock' | 'setup' | 'login' | 'dash'): void {
   Object.entries(screens).forEach(([key, el]) => {
     el.hidden = key !== screen;
   });
@@ -304,9 +343,92 @@ function show(screen: 'setup' | 'login' | 'dash'): void {
   }
 }
 
+/* ---------- gate ---------- */
+const lockForm = $('#lockForm') as HTMLFormElement;
+const lockStatus = $('#lockStatus');
+
+/** Shows setup (new device) or the dashboard (known device). */
+async function unlockGate(): Promise<void> {
+  const config = loadConfig();
+
+  if (!config) {
+    show('setup');
+    syncSetupPasswords();
+    return;
+  }
+
+  state.config = config;
+  state.branch = config.branch || 'main';
+
+  if (!state.passphrase) {
+    const username = loginForm.querySelector<HTMLInputElement>('[name="username"]');
+    if (username) username.value = config.username;
+    show('login');
+    return;
+  }
+
+  try {
+    const token = await decryptSecret(config, state.passphrase);
+    state.token = token;
+    show('dash');
+    await openTab('programs');
+  } catch {
+    // passphrase changed since this device was set up — fall back to manual login
+    const username = loginForm.querySelector<HTMLInputElement>('[name="username"]');
+    if (username) username.value = config.username;
+    lockStatus.textContent = 'كلمة السر اتغيّرت — سجّل الدخول من جديد وجهّز التوكن على الجهاز ده.';
+    lockStatus.dataset.state = 'err';
+    show('login');
+  }
+}
+
+lockForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  lockStatus.dataset.state = '';
+  lockStatus.textContent = 'بيتحقق...';
+
+  const form = new FormData(lockForm);
+  const passphrase = String(form.get('passphrase') || '');
+
+  if (!passphrase) return;
+
+  const ok = await passphraseMatches(passphrase);
+  if (!ok) {
+    lockStatus.textContent = 'كلمة السر غلط.';
+    lockStatus.dataset.state = 'err';
+    return;
+  }
+
+  state.passphrase = passphrase;
+  try {
+    sessionStorage.setItem(PASS_KEY, passphrase);
+  } catch {
+    /* private mode — ignore */
+  }
+  lockStatus.textContent = '';
+  lockStatus.dataset.state = '';
+  await unlockGate();
+});
+
 /* ---------- setup ---------- */
 const setupForm = $('#setupForm') as HTMLFormElement;
 const setupStatus = $('#setupStatus');
+
+function syncSetupPasswords(): void {
+  const passField = $('#setupPassField');
+  const pass2Field = $('#setupPass2Field');
+  const note = $('#setupPassNote');
+  const useGate = Boolean(state.passphrase);
+  passField.hidden = useGate;
+  pass2Field.hidden = useGate;
+  note.hidden = !useGate;
+  if (useGate) {
+    const pass = setupForm.querySelector<HTMLInputElement>('[name="password"]');
+    const pass2 = setupForm.querySelector<HTMLInputElement>('[name="password2"]');
+    if (pass) pass.value = state.passphrase as string;
+    if (pass2) pass2.value = state.passphrase as string;
+  }
+}
 
 setupForm.addEventListener('submit', async (event) => {
   event.preventDefault();
@@ -319,8 +441,8 @@ setupForm.addEventListener('submit', async (event) => {
   const branch = String(form.get('branch') || '').trim() || 'main';
   const token = String(form.get('token') || '').trim();
   const username = String(form.get('username') || '').trim();
-  const password = String(form.get('password') || '');
-  const password2 = String(form.get('password2') || '');
+  const password = state.passphrase || String(form.get('password') || '');
+  const password2 = state.passphrase || String(form.get('password2') || '');
 
   if (!owner || !repo || !token || !username) {
     setupStatus.textContent = 'كمّل كل الحقول المطلوبة.';
@@ -418,10 +540,21 @@ $('#resetBtn').addEventListener('click', () => {
 
 $('#lockBtn').addEventListener('click', () => {
   state.token = null;
+  state.passphrase = null;
   state.files = {};
+  try {
+    sessionStorage.removeItem(PASS_KEY);
+  } catch {
+    /* ignore */
+  }
+  const passphrase = lockForm.querySelector<HTMLInputElement>('[name="passphrase"]');
+  if (passphrase) passphrase.value = '';
   const password = loginForm.querySelector<HTMLInputElement>('[name="password"]');
   if (password) password.value = '';
-  show('login');
+  lockStatus.textContent = '';
+  lockStatus.dataset.state = '';
+  if (GATE_ON) show('lock');
+  else show('login');
 });
 
 /* ---------- dashboard: tabs ---------- */
@@ -914,15 +1047,21 @@ panel.addEventListener('click', async (event) => {
     return;
   }
 
-  const config = loadConfig();
-  if (!config) {
-    show('setup');
+  if (GATE_ON) {
+    let saved: string | null = null;
+    try {
+      saved = sessionStorage.getItem(PASS_KEY);
+    } catch {
+      saved = null;
+    }
+    if (saved) {
+      state.passphrase = saved;
+      void unlockGate();
+      return;
+    }
+    show('lock');
     return;
   }
 
-  state.config = config;
-  state.branch = config.branch || 'main';
-  const username = loginForm.querySelector<HTMLInputElement>('[name="username"]');
-  if (username) username.value = config.username;
-  show('login');
+  void unlockGate();
 })();

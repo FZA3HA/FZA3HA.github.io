@@ -111,6 +111,31 @@ a {
   margin-block-start: 16px;
 }
 
+.a-card--lock {
+  margin-block-start: clamp(28px, 12vh, 110px);
+  text-align: center;
+}
+
+.a-card--lock .a-sub {
+  margin-block-end: 22px;
+}
+
+.a-card--lock form {
+  text-align: start;
+}
+
+.a-lock-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  margin-block-end: 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--fg);
+}
+
 h1,
 h2,
 h3 {

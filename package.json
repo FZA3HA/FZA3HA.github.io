@@ -8,6 +8,7 @@
     "build": "node scripts/fetch-thumbs.mjs && astro build",
     "preview": "astro preview",
     "thumbs": "node scripts/fetch-thumbs.mjs",
+    "admin:pass": "node scripts/set-admin-pass.mjs",
     "astro": "astro"
   },
   "dependencies": {

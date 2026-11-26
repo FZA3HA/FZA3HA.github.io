@@ -35,6 +35,37 @@ import '../styles/admin.css';
     </header>
 
     <main class="a-wrap">
+      <!-- ============ gate ============ -->      <section id="screen-lock" class="a-narrow" hidden>
+        <div class="a-card a-card--lock">
+          <span class="a-lock-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6">
+              <rect x="4" y="10.5" width="16" height="10.5" rx="2.5" />
+              <path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" />
+              <circle cx="12" cy="15.8" r="1.4" fill="currentColor" stroke="none" />
+            </svg>
+          </span>
+          <h1>اللوحة مقفولة</h1>
+          <p class="a-sub">اكتب كلمة السر بتاعتك عشان تفتح التحكم.</p>
+
+          <form id="lockForm" autocomplete="off" novalidate>
+            <label class="a-field">
+              <span class="a-label">كلمة السر</span>
+              <input
+                class="a-input"
+                name="passphrase"
+                type="password"
+                autocomplete="current-password"
+                dir="ltr"
+                autofocus
+                required
+              />
+            </label>
+            <button class="a-btn a-btn--primary a-btn--block" type="submit">فتح</button>
+            <p class="a-status" id="lockStatus" role="status"></p>
+          </form>
+        </div>
+      </section>
+
       <!-- ============ setup ============ -->
       <section id="screen-setup" class="a-narrow" hidden>
         <div class="a-card">
@@ -70,7 +101,7 @@ import '../styles/admin.css';
                 <span class="a-label">اسم المستخدم للوحة</span>
                 <input class="a-input" name="username" dir="ltr" autocomplete="username" required />
               </label>
-              <label class="a-field">
+              <label class="a-field" id="setupPassField">
                 <span class="a-label">كلمة المرور</span>
                 <input
                   class="a-input"
@@ -78,15 +109,18 @@ import '../styles/admin.css';
                   type="password"
                   minlength="8"
                   autocomplete="new-password"
-                  required
                 />
               </label>
             </div>
 
-            <label class="a-field">
+            <label class="a-field" id="setupPass2Field">
               <span class="a-label">تأكيد كلمة المرور</span>
-              <input class="a-input" name="password2" type="password" minlength="8" autocomplete="new-password" required />
+              <input class="a-input" name="password2" type="password" minlength="8" autocomplete="new-password" />
             </label>
+
+            <p class="a-hint" id="setupPassNote" hidden>
+              التوكن هيتشفّر بكلمة سر اللوحة نفسها — مش محتاج تكتبها تاني.
+            </p>
 
             <button class="a-btn a-btn--primary a-btn--block" type="submit">حفظ وبدء</button>
             <p class="a-status" id="setupStatus" role="status"></p>
