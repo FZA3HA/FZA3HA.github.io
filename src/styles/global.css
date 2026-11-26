@@ -1754,7 +1754,7 @@ html.no-js [data-reveal] {
     position: absolute;
     inset: 0;
     z-index: 0;
-    opacity: 0.5;
+    opacity: 0.62;
     pointer-events: none;
   }
   .hero__visual .orbit-chip {
@@ -1787,7 +1787,8 @@ html.no-js [data-reveal] {
     order: 0;
   }
   .browser {
-    transform: none;
+    transform: perspective(1100px) rotateX(3deg);
+    transform-origin: center bottom;
   }
 }
 
@@ -1807,7 +1808,7 @@ html.no-js [data-reveal] {
     height: 34px;
   }
   .hero__brand {
-    font-size: clamp(3.1rem, 17vw, 5rem);
+    font-size: clamp(3.4rem, 18vw, 5.4rem);
   }
   .hero__role::after {
     display: none;

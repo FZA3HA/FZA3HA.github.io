@@ -11,7 +11,7 @@ import Contact from '../../components/Contact.astro';
 import { site, pick } from '../../lib/content';
 
 const lang = 'en' as const;
-const title = `${site.brand} — ${pick(site.name, 'en')} | ${pick(site.role, 'en')}`;
+const title = `${site.brand} | ${pick(site.role, 'en')}`;
 const description = pick(site.tagline, 'en');
 const marquee = [...site.focus, 'Python', 'FastAPI', 'Astro', 'Automation', 'CLI'];
 ---

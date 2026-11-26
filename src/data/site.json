@@ -1,8 +1,8 @@
 {
   "brand": "FZA3HA",
   "name": {
-    "ar": "سيف حسن أحمد",
-    "en": "Saif Hassan Ahmed"
+    "ar": "FZA3HA",
+    "en": "FZA3HA"
   },
   "role": {
     "ar": "مطور بايثون",
@@ -14,12 +14,12 @@
   },
   "bio": {
     "ar": [
-      "أنا سيف، مطور بايثون. بحب أفهم المشكلة من جذورها، وبعدها أكتب أقل كود ممكن يحلها بأحسن شكل.",
+      "أنا FZA3HA، مطور بايثون. بحب أفهم المشكلة من جذورها، وبعدها أكتب أقل كود ممكن يحلها بأحسن شكل.",
       "شغلي بين الأدوات اللي بتسهّل اليوم، والسكربتات اللي بتوفّر وقت، والمواقع اللي بتوصّل الفكرة بسرعة وبشكل نظيف.",
       "هنا بتلاقي كل حاجة بعملها — البرامج، المواقع، واللينكات — وبتتحدّث باستمرار."
     ],
     "en": [
-      "I'm Saif, a Python developer. I like to understand a problem at its roots, then write the smallest amount of code that solves it properly.",
+      "I'm FZA3HA, a Python developer. I like to understand a problem at its roots, then write the smallest amount of code that solves it properly.",
       "My work sits between tools that make the day easier, scripts that save time, and websites that deliver an idea quickly and cleanly.",
       "This is where everything I build lives — programs, websites and links — and it keeps growing."
     ]
