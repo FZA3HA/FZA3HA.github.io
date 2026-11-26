@@ -9,6 +9,14 @@ interface Props {
 
 const { lang } = Astro.props;
 const isInternal = (url: string) => url.startsWith('#') || url.startsWith('/');
+const arrowFor = (url: string) => {
+  if (!url.startsWith('#')) return 'arrow-up-right';
+  const above = ['#programs', '#sites', '#about', '#top'];
+  const below = ['#skills', '#contact'];
+  if (above.includes(url)) return 'arrow-up';
+  if (below.includes(url)) return 'arrow-down';
+  return 'arrow-up-right';
+};
 ---
 
 <section class="section section--tight" id="links">
@@ -40,7 +48,7 @@ const isInternal = (url: string) => url.startsWith('#') || url.startsWith('/');
                 <span class="link-card__desc">{pick(link.desc, lang)}</span>
               </span>
               <span class="link-card__arrow">
-                <Icon name={isInternal(link.url) ? 'arrow-down' : 'arrow-up-right'} size={17} />
+                <Icon name={arrowFor(link.url)} size={17} />
               </span>
             </a>
           ))}
