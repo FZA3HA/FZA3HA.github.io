@@ -1,28 +1,6 @@
-[
-  {
-    "id": "imsakiyah-1448h",
-    "name": { "ar": "إمساكية رمضان ١٤٤٨", "en": "Ramadan Imsakiyah 1448H" },
-    "desc": {
-      "ar": "مواقيت الصلاة، عدّاد للإفطار، وبطاقة اليوم — صفحة واحدة سريعة مظبوطة على الموبايل.",
-      "en": "Prayer times, an iftar countdown and a daily card — one fast page built for mobile."
-    },
-    "url": "https://fza3ha.github.io/imsakiyah-1448h/",
-    "year": "2026",
-    "tags": ["Ramadan", "Countdown", "Web"],
-    "image": "",
-    "demo": false
-  },
-  {
-    "id": "imsakiyah",
-    "name": { "ar": "إمساكية FZA3HA ١٤٤٨", "en": "FZA3HA Imsakiyah 1448H" },
-    "desc": {
-      "ar": "النسخة الأصلية: صفحة إمساكية سريعة لرمضان ١٤٤٨ هـ.",
-      "en": "The original build: a fast Ramadan 1448H imsakiyah page."
-    },
-    "url": "https://fza3ha.github.io/fza3ha-s-Ramadan-Imsakiyah/",
-    "year": "2026",
-    "tags": ["TypeScript", "Ramadan", "Web"],
-    "image": "",
-    "demo": false
-  }
-]
+{
+  "v": 1,
+  "salt": "ip81QtnnSSvYqu1qtUqIww==",
+  "iv": "GxBnTiNF1WX7envK",
+  "data": "1Y0J5lw3B+DZvk2Y8FMiR4USCMo2AuUA7K7lT/JGuL+AritKi+eMf6MGEX1iaXV3YkpUMnrzJP2g1dafJVBQweKrKCjp2XW5Z7SeYel/KGdZjCLZzPpui3y388TDq/pn3tuxBjvIFa6o+GW35FRk3r9bngUulsLMhvBDloGUqt7vJOOsvJc4yR51EOqlWnIoKJDcJ0nyofGY+5G9fOO13qIR264ZKP6R6RHJ3P3l4o9YnS2bhUnzUS9n2D6kBDdD532d9FMY22oBU2DncOsRK0AjfUpPsY3nmMdHDh3Id+QSOSWHdh+aHf+6xHL0CV6GPXLLHVJgephqzQGY1IjSYw3sI52jQ3RVEnM9EIWjT4ML2vXKJ/+cQbJb9n4Ll66Mtv5Gyi66IEAAh4DV57NxZu0ELRMy9xxE8OvvkN2NhKsNnmi0k1luKDrBVy9/vFgj2fajr0khCsLDRLaDVsmLkbb5+Qg7cFgT0dkuHtsaEHY2s5DQ3eCzkdpAaNL6iDPWN89/vYg6fbPFRTZCF/xFLF6gs2Z2l0p3Y2I515XlRj3pL8oJ27lruziRH+Z8jh180JM1/P3X9vm+8seQSw7TP5qsERccGD9VRgtThjvIiTp1dSgpbyh2lkhqaPslsfNL9iVZLdzuOle3+XTIkpngX5n+8fth3dIFTCL1VwEkX3KejvLoXmipDQ43Ks16D0KX/0XWB655a3YhwamiU+lm67DeU5f2JBSWHB430Tg3cihUJ3meMbFJw6eD1BluNQ3rZuCIx8zn8MhXZWzhNkdrNGWj3P51djAiKzJQ2vvnkb2WJazTewjFVUGYopIFMplLybFJbRV+/ry9jp/nqvLonV1HNcjfokDEYCKrZEoFUtaUrfmwpAEyWKcyFUwwBfAtMBF95mPiqQDP/pimA6IuuKuSHY1l543lYxMGgD7HWFcdOs6znvDKFPhzz1Muce2c9H5Lk0lv5iCH8gG5Bb4lLBZyMCsPiYkn86+vd8WykzAA3uTxGVWEEjxyTRjNyRFQpemp6WEdcbtYM6a/GcTfhineOUovdkxWDnlGkXRkiTKRbUVruDclJU1pn5d8pBlybgOvB54ivZjeeMrcItTXBWdsU1wLb3tOyb3+hPt9GRLtlFrh0eyzWD6B36olp+ni/DFaD2LCqXtrB9qS7kQEC/O/c9M14GHfw8z26v1wwsRrGSwOxrGJPHP2m4tQoezD4flGfvfk2m7kIQtDhQxKgHy1c2IZV0ifVGx/XPdoE6DkD/kOsH1jDQ34RQxZ0Ok5e3a/IHoWvZ9f55jOJ/4sgJppKYOH31FTGCaCkKV6HDo4pVtWfXr+3uOzV0td0qIaPXRONdVycO2q8gdACo+h6ZQsaX/kJeNwmnDjdsxz51qE/SBvDT0k3X1YZG0IpCGA5Zat3QjRh6GeHhG+lHrESoKnyqA4FsM+3uxLerN9RULx5jNiPjfgGctoZ82n+yt/w6Tx7a4wa+GovsOkRAbiy8zvSApf2TjDKkPxvsc1xes4+cW7FzBUZ61gK1fZ6sYa7Rb3EyS/cmOH/A=="
+}

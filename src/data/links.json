@@ -1,37 +1,6 @@
-[
-  {
-    "id": "github",
-    "title": { "ar": "GitHub", "en": "GitHub" },
-    "desc": { "ar": "الكود والمشاريع المفتوحة", "en": "Code and open projects" },
-    "url": "https://github.com/FZA3HA",
-    "icon": "github"
-  },
-  {
-    "id": "instagram",
-    "title": { "ar": "إنستجرام", "en": "Instagram" },
-    "desc": { "ar": "صور وشغل جديد", "en": "Photos and new work" },
-    "url": "https://www.instagram.com/fza_3_ha/",
-    "icon": "instagram"
-  },
-  {
-    "id": "programs",
-    "title": { "ar": "برامجي", "en": "My programs" },
-    "desc": { "ar": "كل الأدوات اللي بنيتها", "en": "Every tool I've built" },
-    "url": "#programs",
-    "icon": "code"
-  },
-  {
-    "id": "sites",
-    "title": { "ar": "مواقعي", "en": "My websites" },
-    "desc": { "ar": "مواقع ويب صممتها وبنتها", "en": "Websites I designed and built" },
-    "url": "#sites",
-    "icon": "globe"
-  },
-  {
-    "id": "contact",
-    "title": { "ar": "تواصل معايا", "en": "Contact me" },
-    "desc": { "ar": "لأي فكرة أو تعاون", "en": "For any idea or collaboration" },
-    "url": "#contact",
-    "icon": "mail"
-  }
-]
+{
+  "v": 1,
+  "salt": "M8mZqBnqiyTuM8++fcsA1g==",
+  "iv": "Go/kLBm/3n0ukVAA",
+  "data": "xL43vmuZN575uwnWpGS0B92lnU0jML0QoJADsv6BPKRT7hBoSPQrtYs7tzlMG5wdcxOdp8apqw0QmJT+eg8bshjEXNka+0WCecWqpq4564wwm4E4926jOcbWJ73zu+EC70/Mhcn4NhVDREu9qUyPbPnA+gZZNbQNvn0LUM1u+1Pdimi1624am6Ap+OucdNs3DwRb0sB53TNWFZu82MtREwx4yHP9UmHGKtWcnV7i5mH05P4K2kvzyJa/SewqFFIUTtkUdRCiCnvxgkGrkwxxjb/JDaxW0qqy14Dpr/oRBiViI9zGKTAX6uSbzCH1vtmRXh8EQ92Cpc6GA4IYE/8fVcWA5nNAJkBRGL9EUNMg4q1oXOgqrgqkkmehaMn0dRugCFIe/UxFKE2YujwdC39e278mWFQ+qWUmrDsLc+idKwF1jnP/9qmFFSbiSU64UbriA4TSS98HjqRP1M5dVDWfULFRAZLQ3ZEH4SP7jljqwZqo+7MzLu8aBVFCML/DqLypoQg+HQem3A2HEhfVNJd6Sc9cBKLGY9RtJKBSwxmc8uDoZE/2lRELpT/biNpvuSVTpm9K8Q6a3sSXM6NmHC0Nc7PffVk+djdf51bc5mmrsw9RBGR2SrQG07iiMNo6RN0C3FEfZs4DkCywO2EvT4UYgXlrmfea16k/WBwBrwLM94Rj+A7mJr2A7WbF4xMKdMWHXokl6XbSIYNtxu67x3WsKtJtaUW6tb8SL+qLJ9o1yObUnpJvqA+cM5bEOKagTz0qzigETCmLFeHWgqAh6mavMSa81CaZhNsSBNW4t5Xq9lzbEUXcGzLcqA8MPhyQ66bavz/6LlqYCQfQFlxRSsS8lKx6pYEJPkyPlBmugFkoCcT97/16dXW08FNL47f3pwbAGX3yIgIqcgg7Oy+cyXvI54QDzfv5UJEJw7FlNvKZheRJdCGS7yKK2sVzJJiMb+Huj4n+LoK3cE2NeFu/EVeLk64nJi27lEMHJH69Q98Yi5q9sMIX1fBEUjGBtwA2dK/GuWHZ8tNlcNW8FwMAqOyQJcarD1Chz1HutmyqCMso01GXdqe9dx0j1gs86i5i8tvkL0pqQ8xIpDGFr5sM4Nq1WdogCqFdb1SPLP6caSsIIPx6WxaduGIcY1uDVfg9kioyVSRRnyYBk2wAAneLPjb1XKkpz0EaHSbjX72Hhw+oRIHp/Pp4Lno3ykK/vwA2Y+D587UCGm76BKpm8BIg4htplfsVYas7sgaBqFu5m+NJBymUSOm+RfTA/Aulw1DEUOmEkAHSmc7SFTOAwiK1u724kBdx0Qi7eYm7n98h3yH15FroE0Zos2xbUcZRa7+1JmwKMsX1Kuw5fMTTfa+V4DFYLH9R4K0YXpteHkqZeF8+86ya7sqe1G3bBAS7TvA0/P/66e2D8k26xBJPL+e+62QCSvzGdPP5oWfzXJ6mf+T/11Qunl0cF3xqyS0DAYViYQKP6jZ/3uX87duaJeUd0nm+QMliSrkz7pyN6aYyUqhkX5cX1EdMCMj80pgY5LGmHP//HzS0L2f3w9jDZXpVGGUBDkUkCoqXYmaDtnkj2UbmnIPcZSh1Ma4HDSMcbxhEmJE/Oyo7B1OJMZWT1GQKtWJh1AfgbSJgKm5Vzx/GCCpplS7zLAW+ELeu1gErqUeyIMjcR2vofeKIIDMI6IQie9nBsbHvKmzjKzotW4F3sy40Twe4Wlo/X8vEXghEqH2SJegkJRCbzb+xCO4S/WaTWh9doN9XmV0ixsdkRK7H1mbLpFY2cx3/8aih4ovgaJREhMCj+dt7o2a6f86+TaIN2xHRXoaOcZ2YWkmGdHDz9abx"
+}

@@ -13,3 +13,7 @@ Thumbs.db
 # local launchers (machine-specific node path)
 /dev.cmd
 /preview.cmd
+
+# encrypted-data build output (decrypted at build time, never committed)
+/src/data-plain/
+/.data-key

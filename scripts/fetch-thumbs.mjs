@@ -12,6 +12,8 @@
  */
 import { readFile, writeFile, mkdir, access } from 'node:fs/promises';
 import { join, extname } from 'node:path';
+import { pbkdf2Sync, createDecipheriv } from 'node:crypto';
+import { existsSync } from 'node:fs';
 
 const ROOT = process.cwd();
 const DATA = join(ROOT, 'src', 'data');
@@ -24,7 +26,27 @@ const TIMEOUT = 15000;
 
 const readJson = async (file, fallback) => {
   try {
-    return JSON.parse(await readFile(join(DATA, file), 'utf8'));
+    const raw = await readFile(join(DATA, file), 'utf8');
+    const parsed = JSON.parse(raw);
+    if (parsed && parsed.salt && parsed.iv && parsed.data) {
+      let pass = process.env.DATA_KEY;
+      if (!pass) {
+        const f = join(ROOT, '.data-key');
+        if (existsSync(f)) pass = (await readFile(f, 'utf8')).trim();
+      }
+      if (!pass) throw new Error('DATA_KEY missing');
+      const salt = Buffer.from(parsed.salt, 'base64');
+      const iv = Buffer.from(parsed.iv, 'base64');
+      const ct = Buffer.from(parsed.data, 'base64');
+      const key = pbkdf2Sync(pass, salt, 250000, 32, 'sha256');
+      const tag = ct.subarray(ct.length - 16);
+      const body = ct.subarray(0, ct.length - 16);
+      const decipher = createDecipheriv('aes-256-gcm', key, iv);
+      decipher.setAuthTag(tag);
+      const plain = Buffer.concat([decipher.update(body), decipher.final()]).toString('utf8');
+      return JSON.parse(plain);
+    }
+    return parsed;
   } catch {
     return fallback;
   }

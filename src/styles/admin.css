@@ -572,3 +572,21 @@ dialog.a-dialog::backdrop {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* ---------- advanced (collapsible) ---------- */
+.a-advanced {
+  margin-top: 16px;
+  padding: 12px 14px;
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+}
+.a-advanced > summary {
+  cursor: pointer;
+  color: var(--dim);
+  font-size: 0.82rem;
+  list-style: none;
+  user-select: none;
+}
+.a-advanced > summary::-webkit-details-marker { display: none; }
+.a-advanced[open] > summary { margin-bottom: 12px; color: var(--muted); }
+

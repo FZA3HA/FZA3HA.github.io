@@ -1,16 +1,6 @@
-[
-  {
-    "id": "skyv",
-    "name": { "ar": "skyV", "en": "skyV" },
-    "desc": {
-      "ar": "برنامج ويندوز لتحميل الفيديو والصوت من يوتيوب وأكثر من ١٠٠٠ موقع، وتحويل أي فيديو لـ MP3 بوسوم وغلاف أوتوماتيك.",
-      "en": "A Windows app that downloads video and audio from YouTube and 1000+ sites, and converts any video to MP3 with automatic tags and cover art."
-    },
-    "url": "https://github.com/FZA3HA/skyV/releases/latest",
-    "repo": "https://github.com/FZA3HA/skyV",
-    "year": "2026",
-    "tags": ["Python", "Tkinter", "yt-dlp", "Windows"],
-    "image": "/thumbs/skyv.jpg",
-    "demo": false
-  }
-]
+{
+  "v": 1,
+  "salt": "kM9bglBOhKSJ5R8nbzSeaw==",
+  "iv": "Ms078uGhEPxaTCRY",
+  "data": "I7nZBonSzQEUCgWUQ03e5DDhnovJMqUV/tVDve4g5XTb/ApMLzh/JKNA/B+kSeK3L2DG2EVndcN0deX9EyXhMIVfjD4d5QsnnaxmE59Gjlirxkjb0XCCPJHKrhMSArad+rkd8Henwz8XPgViBQIZCP488X1Zb9oo2QOD+Rqw7Cb2WvpaL6yjPG06G+LWr5lfjazTl0ZGdC41VwD/5s6F2LW6QCVyyPqn/BOy1OBdMCT3ecf8IS75ThxJ6gN4CEIEdApo/vE3nR8mc6T+0aG1kFY1xgrmiYb0KF1gbS8emQI8aB+aBPnr8BadITd/klmZoo1LoMx0eNW4E8g3mzR6XZMzhn5EOpCs+oTxWe9feBSQJgRDFIexerCTjSfdlIDlO6d+Vb2y5aGik29D1qiNleMy9K7OySSuCzplC5+G60cMDCDVvaJC94pma74xrIrQJfG4V54OoOncWvwRzq4X47hoDMMbE9mxJnkN9o1emQoEydudFiXnaHjnClrfZC9hzlMIqLDAKSuD4DRtTS4zLWopXr8zc82i1X4Opx8h7EvfxZCJsTtwtYIR1i2o2ZpKBRmE4zRcSYgrMAoZE2aBD7CItoV2UV7TySg8FjQsRrZO+CI/1cVv9VNlv+nKU3FcBUpQ3WhyM/CKkMBEFTsiwuHlrRtcg5d/UvPQETPq6PIfeFQqxCl4jVEUlP9ul40c6CNHrVDkarJnIG0ak+AZTkEIAigfTUiPkoFc82bdplnzF/v17254vh103EFvOXqwrU/SMtLIR1n/sVEI7YMGmY5Wumqi0f1lr84TKzilUlaGsEpsMDD/CI7veglLS6nhX9jTfG8zI8dLaLyA8hYfFcyQqyJSnt0VjrBKVuI3DRwG+3JUWqPYM3J/gbnaHMAlyVWx0YsAfXFUJ5Ly22cSzQsgb+SFc6EycP68e1Wyp0fo0k2PJBlAJ1l4xm0LioXUhRQxgCR8jPM9fUatFYsEGyTJmTFaIDLxpHYgP+G3D4eTAHRe1nYMcG8="
+}

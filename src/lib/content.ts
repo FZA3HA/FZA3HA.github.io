@@ -1,7 +1,7 @@
-import siteJson from '../data/site.json';
-import programsJson from '../data/programs.json';
-import sitesJson from '../data/sites.json';
-import linksJson from '../data/links.json';
+import siteJson from '../data-plain/site.json';
+import programsJson from '../data-plain/programs.json';
+import sitesJson from '../data-plain/sites.json';
+import linksJson from '../data-plain/links.json';
 import thumbsJson from '../data/thumbs.json';
 import type { Lang, LocaleText } from './i18n';
 

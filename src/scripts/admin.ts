@@ -214,6 +214,30 @@ function persistConfig(config: Config): void {
   localStorage.setItem(LS_KEY, JSON.stringify(config));
 }
 
+async function decryptDataBlob(blob: { salt: string; iv: string; data: string }): Promise<any> {
+  if (!state.passphrase) throw new Error('كلمة السر مطلوبة لفك تشفير البيانات');
+  const key = await deriveKey(state.passphrase, fromB64(blob.salt));
+  const plain = await crypto.subtle.decrypt(
+    { name: 'AES-GCM', iv: fromB64(blob.iv) as unknown as BufferSource },
+    key,
+    fromB64(blob.data) as unknown as BufferSource,
+  );
+  return JSON.parse(td.decode(plain));
+}
+
+async function encryptDataBlob(data: any): Promise<{ v: number; salt: string; iv: string; data: string }> {
+  if (!state.passphrase) throw new Error('كلمة السر مطلوبة لتشفير البيانات');
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const key = await deriveKey(state.passphrase, salt);
+  const cipher = await crypto.subtle.encrypt(
+    { name: 'AES-GCM', iv },
+    key,
+    te.encode(JSON.stringify(data, null, 2) + '\n'),
+  );
+  return { v: 1, salt: toB64(salt), iv: toB64(iv), data: toB64(new Uint8Array(cipher)) };
+}
+
 /* ---------- github ---------- */
 async function gh(path: string, init: RequestInit = {}): Promise<Response> {
   if (!state.token || !state.config) throw new Error('مش مسجل دخول');
@@ -257,7 +281,8 @@ async function loadFile(key: keyof typeof FILES): Promise<FileState> {
   if (!response.ok) throw new Error(`تعذّر تحميل ${path} (${response.status})`);
   const json = (await response.json()) as { sha: string; content: string };
   const text = td.decode(fromB64(json.content));
-  const data = JSON.parse(text);
+  const parsed = JSON.parse(text);
+  const data = isEncryptedBlob(parsed) ? await decryptDataBlob(parsed) : parsed;
   state.files[path] = { sha: json.sha, data };
   return state.files[path];
 }
@@ -267,7 +292,8 @@ async function saveFile(path: string, message?: string): Promise<void> {
   const file = state.files[path];
   if (!file) throw new Error('الملف مش متحمّل');
 
-  const content = toB64(te.encode(JSON.stringify(file.data, null, 2) + '\n'));
+  const toCommit = state.passphrase ? await encryptDataBlob(file.data) : file.data;
+  const content = toB64(te.encode(JSON.stringify(toCommit, null, 2) + '\n'));
   const response = await gh(`/repos/${state.config.owner}/${state.config.repo}/contents/${path}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
@@ -591,9 +617,14 @@ function projectFields(): Array<{ key: string; label: string; type?: string; ltr
   return [
     { key: 'name.ar', label: 'الاسم (عربي)' },
     { key: 'name.en', label: 'الاسم (إنجليزي)', ltr: true },
+    { key: 'url', label: 'رابط الموقع / التحميل', ltr: true },
+  ];
+}
+
+function projectAdvancedFields(): Array<{ key: string; label: string; type?: string; ltr?: boolean; options?: string[] }> {
+  return [
     { key: 'desc.ar', label: 'الوصف (عربي)', type: 'textarea' },
     { key: 'desc.en', label: 'الوصف (إنجليزي)', type: 'textarea', ltr: true },
-    { key: 'url', label: 'رابط الموقع / التحميل', ltr: true },
     { key: 'repo', label: 'رابط الكود (اختياري)', ltr: true },
     { key: 'year', label: 'السنة', ltr: true },
     { key: 'tags', label: 'الوسوم — بفاصلة (Python, CLI)', ltr: true },
@@ -869,13 +900,25 @@ function openEditor(kind: Kind, index: number | null): void {
   const path = FILES[kind];
   const list = state.files[path].data as AnyRecord[];
   const fields = kind === 'links' ? linkFields() : projectFields();
+  const advanced = kind === 'links' ? [] : projectAdvancedFields();
   const item = index === null ? blankItem(kind) : structuredClone(list[index]);
 
   state.editor = { kind, index };
   editorTitle.textContent = `${index === null ? 'إضافة' : 'تعديل'} ${KIND_LABEL[kind].one}`;
-  editorBody.innerHTML = fields
+
+  const primaryHtml = fields
     .map((field) => fieldMarkup(field as ReturnType<typeof projectFields>[number], getPath(item, field.key)))
     .join('');
+  const advancedHtml = advanced
+    .map((field) => fieldMarkup(field as ReturnType<typeof projectFields>[number], getPath(item, field.key)))
+    .join('');
+
+  editorBody.innerHTML =
+    primaryHtml +
+    (advanced.length
+      ? `<details class="a-advanced"><summary>متقدم (اختياري) — وصف، سنة، وسوم، صورة</summary>${advancedHtml}</details>`
+      : '');
+
 
   dialog.showModal();
 }
@@ -886,7 +929,7 @@ editorForm.addEventListener('submit', async (event) => {
   const { kind, index } = state.editor;
   const path = FILES[kind];
   const list = state.files[path].data as AnyRecord[];
-  const fields = kind === 'links' ? linkFields() : projectFields();
+  const fields = kind === 'links' ? linkFields() : [...projectFields(), ...projectAdvancedFields()];
 
   const data = new FormData(editorForm);
   const item: AnyRecord = index === null ? blankItem(kind) : structuredClone(list[index]);
