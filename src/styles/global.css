@@ -829,18 +829,25 @@ html[dir='rtl'] .marquee__track {
 .about__logo {
   position: relative;
   width: 100%;
+  height: 100%;
   aspect-ratio: 1;
   border-radius: 50%;
-  object-fit: cover;
+  object-fit: contain;
   border: 1px solid var(--line-2);
   filter: contrast(1.05);
+  background: rgba(255, 255, 255, 0.02);
 }
+.about__portrait-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
 .about__ring {
   position: absolute;
-  top: 26px;
-  left: 26px;
-  right: 26px;
-  aspect-ratio: 1;
+  inset: 8px;
   border-radius: 50%;
   border: 1px dashed rgba(255, 255, 255, 0.12);
   animation: spin 60s linear infinite;
@@ -1757,8 +1764,35 @@ html.no-js [data-reveal] {
     position: absolute;
     inset: 0;
     z-index: 0;
-    opacity: 0.62;
+    opacity: 1;
     pointer-events: none;
+    overflow: hidden;
+  }
+  .hero__visual::before,
+  .hero__visual::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(56px);
+    opacity: 0.55;
+    pointer-events: none;
+    will-change: transform;
+  }
+  .hero__visual::before {
+    width: 70vw;
+    height: 70vw;
+    top: -15%;
+    left: -15%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.16), transparent 68%);
+    animation: floatOrb1 18s ease-in-out infinite;
+  }
+  .hero__visual::after {
+    width: 58vw;
+    height: 58vw;
+    bottom: -18%;
+    right: -12%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.10), transparent 70%);
+    animation: floatOrb2 22s ease-in-out infinite;
   }
   .hero__visual .orbit-chip {
     display: none;
@@ -1863,3 +1897,14 @@ html.no-js [data-reveal] {
     opacity: 1;
   }
 }
+
+/* ---------- mobile hero orbs ---------- */
+@keyframes floatOrb1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(6vw, 4vh) scale(1.18); }
+}
+@keyframes floatOrb2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-5vw, -6vh) scale(1.12); }
+}
+

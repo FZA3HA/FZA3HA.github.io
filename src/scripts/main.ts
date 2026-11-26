@@ -214,7 +214,8 @@ document.querySelectorAll<HTMLElement>('[data-year]').forEach((el) => {
 
 /* ---------- hero 3d scene (lazy) ---------- */
 const canvas = document.getElementById('heroCanvas') as HTMLCanvasElement | null;
-if (canvas) {
+const isMobile = window.matchMedia('(max-width: 860px)').matches;
+if (canvas && !isMobile) {
   const load = () => {
     import('./scene')
       .then(({ initHeroScene }) => initHeroScene(canvas))

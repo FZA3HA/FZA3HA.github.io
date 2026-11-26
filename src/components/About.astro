@@ -20,15 +20,17 @@ const { lang } = Astro.props;
 
     <div class="about__grid">
       <div class="about__portrait" data-tilt data-reveal>
-        <img
-          class="about__logo"
-          src="/logo.webp"
-          alt={`${site.brand} — ${pick(site.role, lang)}`}
-          width="440"
-          height="440"
-          loading="lazy"
-        />
-        <span class="about__ring" aria-hidden="true"></span>
+        <div class="about__portrait-media">
+          <img
+            class="about__logo"
+            src="/logo.webp"
+            alt={`${site.brand} — ${pick(site.role, lang)}`}
+            width="440"
+            height="440"
+            loading="lazy"
+          />
+          <span class="about__ring" aria-hidden="true"></span>
+        </div>
         <div class="about__portrait-foot">
           <span>{site.brand}</span>
           <span>{pick(site.role, lang)}</span>
