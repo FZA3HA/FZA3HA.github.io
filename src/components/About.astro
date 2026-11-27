@@ -35,10 +35,6 @@ const { lang } = Astro.props;
           <span>{site.brand}</span>
           <span>{pick(site.role, lang)}</span>
         </div>
-        <a class="about__download" href="/logo.webp" download="FZA3HA-logo.webp">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12M6 10l6 6 6-6M5 20h14"/></svg>
-          {lang === 'ar' ? 'تحميل الشعار' : 'Download logo'}
-        </a>
       </div>
 
       <div class="about__body" data-reveal style="--d:.12s">
