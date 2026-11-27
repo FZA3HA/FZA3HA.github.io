@@ -415,6 +415,7 @@ lockForm.addEventListener('submit', async (event) => {
 
   const form = new FormData(lockForm);
   const passphrase = String(form.get('passphrase') || '');
+  const remember = form.get('remember') === 'on';
 
   if (!passphrase) return;
 
@@ -427,7 +428,13 @@ lockForm.addEventListener('submit', async (event) => {
 
   state.passphrase = passphrase;
   try {
-    sessionStorage.setItem(PASS_KEY, passphrase);
+    if (remember) {
+      localStorage.setItem(PASS_KEY, passphrase);
+      sessionStorage.removeItem(PASS_KEY);
+    } else {
+      sessionStorage.setItem(PASS_KEY, passphrase);
+      localStorage.removeItem(PASS_KEY);
+    }
   } catch {
     /* private mode — ignore */
   }
@@ -570,6 +577,7 @@ $('#lockBtn').addEventListener('click', () => {
   state.files = {};
   try {
     sessionStorage.removeItem(PASS_KEY);
+    localStorage.removeItem(PASS_KEY);
   } catch {
     /* ignore */
   }
@@ -1093,7 +1101,7 @@ panel.addEventListener('click', async (event) => {
   if (GATE_ON) {
     let saved: string | null = null;
     try {
-      saved = sessionStorage.getItem(PASS_KEY);
+      saved = localStorage.getItem(PASS_KEY) || sessionStorage.getItem(PASS_KEY);
     } catch {
       saved = null;
     }

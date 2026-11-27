@@ -590,3 +590,7 @@ dialog.a-dialog::backdrop {
 .a-advanced > summary::-webkit-details-marker { display: none; }
 .a-advanced[open] > summary { margin-bottom: 12px; color: var(--muted); }
 
+
+.a-check { display: flex; align-items: flex-start; gap: 10px; margin: 12px 0 18px; font-size: 0.84rem; color: var(--muted); cursor: pointer; }
+.a-check input { width: 18px; height: 18px; margin-top: 2px; flex: none; }
+
