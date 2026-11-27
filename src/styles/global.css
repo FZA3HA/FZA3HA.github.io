@@ -1912,3 +1912,6 @@ html.no-js [data-reveal] {
 .about__download { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; font-family: var(--font-mono); font-size: .72rem; letter-spacing: .12em; color: var(--dim); text-transform: uppercase; transition: color .25s; }
 .about__download:hover { color: var(--white); }
 
+
+.contact__mailto { margin-block-start: 14px; }
+

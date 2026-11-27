@@ -50,6 +50,18 @@ const messages = {
         }
 
         {
+          site.email && (
+            <a
+              class="btn btn--ghost btn--sm contact__mailto"
+              href={`mailto:${site.email}?subject=${encodeURIComponent('FZA3HA — ' + (lang === 'ar' ? 'تواصل' : 'Contact'))}&body=${encodeURIComponent((lang === 'ar' ? 'الاسم: \nالبريد: \nالرسالة: ' : 'Name: \nEmail: \nMessage: '))}`}
+            >
+              <Icon name="mail" size={16} />
+              {lang === 'ar' ? 'تواصل معنا' : 'Contact us'}
+            </a>
+          )
+        }
+
+        {
           activeSocials.length > 0 && (
             <div class="contact__socials">
               {activeSocials.map((social) => (
